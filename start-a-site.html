@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Start a Site — Join the Network · REAL Living Lab</title>
+<meta name="description" content="Bring a real place into the REAL Living Lab network. What a site is, the sensor kit, indicative costs, and how to get in touch. Schools, community gardens and individuals welcome." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--cream:#FBF9F2;--cream-deep:#F1EADA;--ink:#22241F;--ink-soft:#4A4D44;--teal:#1B4F5C;--moss:#33503F;--moss-deep:#1E3127;--night:#16241D;--gold:#C9A961;--gold-soft:#E3CE97;--line:rgba(34,36,31,0.12);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:400;line-height:1.12;}
+  a{color:inherit;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 32px;}
+  .label{font-family:'Jost',sans-serif;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;font-size:0.72rem;color:var(--gold);display:inline-flex;align-items:center;gap:9px;}
+  .label::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+  .lightline{height:1px;border:0;background:linear-gradient(90deg,transparent,rgba(201,169,97,0.5),transparent);max-width:1060px;margin:0 auto;}
+
+  nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:15px 32px;background:rgba(251,249,242,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.02rem;}
+  nav .brand .real{color:var(--moss);font-weight:600;}
+  nav .links{display:flex;gap:22px;font-size:0.82rem;}
+  nav .links a{text-decoration:none;color:var(--ink-soft);transition:color .2s;}
+  nav .links a:hover{color:var(--moss);}
+  @media(max-width:680px){nav .links{display:none;}}
+
+  header.hero{padding:96px 0 48px;background:radial-gradient(80% 70% at 72% 0%,#FFFDF6,transparent 70%),var(--cream);}
+  .hero .label{margin-bottom:16px;}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:-0.015em;}
+  .hero h1 em{font-style:italic;color:var(--moss);}
+  .hero p{margin-top:16px;max-width:600px;color:var(--ink-soft);font-size:1.12rem;}
+
+  section{padding:60px 0;}
+  .head{max-width:680px;margin-bottom:36px;}
+  .head h2{font-size:clamp(1.8rem,4vw,2.6rem);margin:14px 0;}
+  .head p{color:var(--ink-soft);font-size:1.04rem;}
+
+  .who{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media(max-width:760px){.who{grid-template-columns:repeat(2,1fr);}}
+  .who .w{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 20px;text-align:center;}
+  .who .w .ic{font-family:'Fraunces',serif;color:var(--gold);font-size:1.4rem;}
+  .who .w h3{font-size:1.1rem;margin:8px 0 4px;}
+  .who .w p{font-size:0.82rem;color:var(--ink-soft);}
+
+  .kit{background:var(--cream-deep);}
+  .kit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 22px;}
+  .item .dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px;}
+  .item h3{font-size:1.1rem;display:flex;align-items:center;}
+  .item p{font-size:0.86rem;color:var(--ink-soft);margin-top:6px;}
+  .item .cost{margin-top:10px;font-family:'Fraunces',serif;font-size:0.95rem;color:var(--moss);}
+
+  .total{margin-top:24px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;padding:24px 26px;}
+  .total .row{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;}
+  .total .big{font-family:'Fraunces',serif;font-size:1.6rem;color:var(--moss);}
+  .total .note{font-size:0.84rem;color:var(--ink-soft);margin-top:12px;line-height:1.6;}
+  .total .note b{color:var(--ink);font-weight:500;}
+
+  .steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media(max-width:760px){.steps{grid-template-columns:1fr 1fr;}}
+  .step{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 22px 22px;}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:22px;width:30px;height:30px;border-radius:50%;background:var(--moss);color:var(--cream);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:0.95rem;}
+  .step h3{font-size:1.1rem;margin-bottom:6px;}
+  .step p{font-size:0.86rem;color:var(--ink-soft);}
+
+  .contact{background:radial-gradient(90% 90% at 50% 0%,#26392D,var(--moss-deep));color:#f4efe2;}
+  .contact .head h2{color:#fff;}
+  .contact .head p{color:rgba(251,249,242,0.82);}
+  .form{max-width:640px;background:rgba(251,249,242,0.05);border:1px solid rgba(227,206,151,0.25);border-radius:18px;padding:30px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:6px;}
+  .field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid rgba(227,206,151,0.3);border-radius:10px;background:rgba(0,0,0,0.18);color:#f4efe2;font-family:'Jost',sans-serif;font-size:0.95rem;}
+  .field input:focus,.field select,.field textarea:focus{outline:none;border-color:var(--gold);}
+  .field textarea{min-height:90px;resize:vertical;}
+  .field select option{color:#111;}
+  .send{margin-top:6px;width:100%;padding:15px;border:none;border-radius:40px;cursor:pointer;background:var(--gold);color:#2a2410;font-family:'Jost',sans-serif;font-weight:500;letter-spacing:0.05em;font-size:0.95rem;transition:transform .2s;}
+  .send:hover{transform:translateY(-2px);}
+  .or{text-align:center;margin-top:18px;font-size:0.85rem;color:rgba(251,249,242,0.7);}
+  .or a{color:var(--gold-soft);}
+
+  footer{background:var(--night);color:#f4efe2;padding:50px 0 36px;text-align:center;}
+  footer a{color:var(--gold-soft);text-decoration:none;}
+  footer .small{font-size:0.75rem;color:rgba(251,249,242,0.5);margin-top:12px;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="brand">
+    <svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 42,56 36,62 36 C72 36,78 44,78 52 C78 66,66 76,52 76 C32 76,20 62,20 46 C20 24,36 10,54 10 C78 10,94 30,94 54 C94 82,74 100,48 100" stroke="#C9A961" stroke-width="3" stroke-linecap="round"/></svg>
+    <span><span class="real">REAL</span> Living Lab</span>
+  </div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="lab-network.html">The Network</a>
+    <a href="danu.html">DANÚ</a>
+    <a href="evidence-reels.html">Evidence</a>
+    <a href="badge-lab.html">Badge Lab</a>
+    <a href="biodiversity-heroes.html">Heroes</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="label">Grow the network</span>
+    <h1>Start a <em>site.</em></h1>
+    <p>Bring a real place into the living lab. A school yard, a community garden, a window box, a stretch of shore. If it has weather and life, it can be a site, and it can join the map.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="label">What a site is</span>
+      <h2>A place, a small kit, and a feed.</h2>
+      <p>A site is any real place you care for, fitted with a simple solar-powered kit that reads water, humidity, light and soil, and connected so its readings stream onto the network's live dashboard. From the day it connects, your place has its own page of open data, and you are doing exactly the same science as DANÚ and ATU.</p>
+    </div>
+    <div class="who">
+      <div class="w"><div class="ic">✿</div><h3>Schools</h3><p>A living outdoor classroom and real data for science and maths.</p></div>
+      <div class="w"><div class="ic">☘</div><h3>Community gardens</h3><p>Add a measuring layer to a place people already tend together.</p></div>
+      <div class="w"><div class="ic">✦</div><h3>Men's Sheds &amp; groups</h3><p>Build the kit, mind the site, watch the seasons turn in numbers.</p></div>
+      <div class="w"><div class="ic">❀</div><h3>Individuals</h3><p>A greenhouse, an allotment, a back garden. One curious person is enough.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="lightline" />
+
+<section class="kit">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">The kit</span>
+      <h2>Built to be copied.</h2>
+      <p>The template runs on a solar-powered set of sensors based on the prototype built by ATU's physics department. This design has been developed in collaboration with Dr Mossy Kelly and his students in the ATU Physics Department. The full bill of materials, with exact parts and wiring, is published as an open blueprint once the template build is finished this summer. These are the typical components.</p>
+    </div>
+    <div class="kit-grid">
+      <div class="item"><h3><span class="dot" style="background:#C9A961"></span>Power</h3><p>A small solar panel, a rechargeable battery and a charge controller, so a site runs without mains power.</p><div class="cost">indicative €35–60</div></div>
+      <div class="item"><h3><span class="dot" style="background:#2FA3A3"></span>Water sensor</h3><p>A soil-moisture probe reading how much water is in the ground.</p><div class="cost">indicative €5–12</div></div>
+      <div class="item"><h3><span class="dot" style="background:#6FB6C9"></span>Humidity sensor</h3><p>An air temperature and humidity sensor for the growing conditions.</p><div class="cost">indicative €5–12</div></div>
+      <div class="item"><h3><span class="dot" style="background:#D9B24A"></span>Light sensor</h3><p>A light-level sensor following the day, the season and the shade.</p><div class="cost">indicative €4–10</div></div>
+      <div class="item"><h3><span class="dot" style="background:#6BA56B"></span>Soil quality sensor</h3><p>The newest addition, reading soil condition such as conductivity or nutrients.</p><div class="cost">indicative €30–80</div></div>
+      <div class="item"><h3><span class="dot" style="background:#8a8f86"></span>Controller &amp; enclosure</h3><p>A low-cost microcontroller that reads the sensors and sends the data, in a weatherproof box.</p><div class="cost">indicative €25–55</div></div>
+    </div>
+    <div class="total">
+      <div class="row"><span class="label" style="color:var(--gold);">Indicative kit total</span><span class="big">around €150–250</span></div>
+      <p class="note"><b>These figures are indicative, not a quote.</b> The exact cost depends on the soil sensor you choose and where you buy. The open blueprint will carry the confirmed bill of materials, and we will keep a low-cost build that schools can manage. There is no charge to be on the network and no subscription: the dashboard and the data are free and open. Where we can, we will help groups source or part-fund a kit.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="lightline" />
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="label">How to join</span>
+      <h2>Four steps to live on the map.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Say hello</h3><p>Tell us about your place using the form below. There is no commitment in a first conversation.</p></div>
+      <div class="step"><h3>Get the blueprint</h3><p>We share the open build guide and help you put the kit together, or point you to a ready one.</p></div>
+      <div class="step"><h3>Place &amp; connect</h3><p>Set it up in your spot and point its feed at the network using the simple open data format.</p></div>
+      <div class="step"><h3>Go live</h3><p>Your site appears on the live dashboard with its own page of open readings, alongside the others.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="get-in-touch">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Get in touch</span>
+      <h2>Tell us about your place.</h2>
+      <p>A few lines is plenty. We will come back to you about joining the network.</p>
+    </div>
+    <div class="form">
+      <div class="field"><label for="name">Your name</label><input id="name" type="text" placeholder="Your name" /></div>
+      <div class="field"><label for="org">Place or organisation</label><input id="org" type="text" placeholder="e.g. Annaghdown National School, or my back garden" /></div>
+      <div class="field"><label for="type">What kind of site</label>
+        <select id="type"><option>School</option><option>Community garden</option><option>Men's Shed or group</option><option>Individual</option><option>Other</option></select></div>
+      <div class="field"><label for="county">County</label><input id="county" type="text" placeholder="e.g. Co. Galway" /></div>
+      <div class="field"><label for="msg">Anything you'd like to tell us</label><textarea id="msg" placeholder="What is the place like, and what draws you to this?"></textarea></div>
+      <button class="send" id="send">Send to the Lab →</button>
+      <p class="or">or email us directly at <a href="mailto:etain.kiely@atu.ie">etain.kiely@atu.ie</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    A network of the <a href="index.html">REAL Living Lab</a>, ATU and Gairdín DANÚ · <a href="lab-network.html">See the network</a>
+    <div class="small">Open data, CC BY-SA 4.0 · ENoLL-aligned</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('send').addEventListener('click',function(){
+    const v = id => (document.getElementById(id).value || '').trim();
+    const name=v('name'), org=v('org'), type=document.getElementById('type').value, county=v('county'), msg=v('msg');
+    const subject = encodeURIComponent('New site for the REAL Living Lab network');
+    const body = encodeURIComponent(
+      'Name: '+name+'\n'+
+      'Place / organisation: '+org+'\n'+
+      'Type of site: '+type+'\n'+
+      'County: '+county+'\n\n'+
+      (msg||'')+'\n\n'+
+      '(Sent from the Start a Site page)'
+    );
+    window.location.href = 'mailto:etain.kiely@atu.ie?subject='+subject+'&body='+body;
+  });
+</script>
+</body>
+</html>

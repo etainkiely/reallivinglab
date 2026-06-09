@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Lab Network — Live Environmental Data · REAL Living Lab</title>
+<meta name="description" content="The REAL Living Lab network: three teaching sites streaming open environmental data. DANÚ Garden, ATU Greenhouse, and a replicable template greenhouse. Water, humidity, light and soil." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#FBF9F2;--cream-deep:#F1EADA;--ink:#22241F;--ink-soft:#5b5d53;
+    --gold:#C9A961;--moss:#33503F;--moss-deep:#1E3127;--night:#16241D;
+    --water:#2FA3A3;--humid:#6FB6C9;--light:#D9B24A;--soil:#6BA56B;--line:rgba(34,36,31,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Jost',sans-serif;font-weight:300;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:15px 28px;background:rgba(251,249,242,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.02rem;}
+  nav .brand .real{color:var(--moss);font-weight:600;}
+  nav .links{display:flex;gap:22px;font-size:0.82rem;}
+  nav .links a{text-decoration:none;color:var(--ink-soft);transition:color .2s;}
+  nav .links a:hover{color:var(--moss);}
+  @media(max-width:680px){nav .links{display:none;}}
+
+  header.hero{padding:64px 0 30px;background:radial-gradient(70% 60% at 70% 0%,#FFFDF6,transparent 70%),var(--cream);}
+  .eyebrow{font-weight:500;letter-spacing:0.22em;text-transform:uppercase;font-size:0.7rem;color:var(--gold);display:inline-flex;align-items:center;gap:9px;margin-bottom:14px;}
+  .eyebrow::before{content:"";width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+  h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2.1rem,5vw,3.2rem);line-height:1.08;letter-spacing:-0.015em;}
+  h1 em{font-style:italic;color:var(--moss);}
+  header.hero p{margin-top:14px;max-width:640px;color:var(--ink-soft);font-size:1.05rem;line-height:1.6;}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;}
+  .legend .lg{display:inline-flex;align-items:center;gap:7px;font-size:0.78rem;color:var(--ink-soft);}
+  .legend .dot{width:10px;height:10px;border-radius:3px;}
+
+  section{padding:18px 0 40px;}
+  .site{background:linear-gradient(165deg,#22372B,var(--night));color:#f4efe2;border-radius:22px;padding:28px 28px 30px;margin-bottom:26px;border:1px solid rgba(201,169,97,0.28);position:relative;overflow:hidden;}
+  .site-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:22px;}
+  .site-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.7rem;color:#fff;line-height:1;}
+  .site-head .loc{font-size:0.82rem;color:rgba(244,239,226,0.6);margin-top:6px;}
+  .role{font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;padding:5px 12px;border-radius:30px;font-weight:500;display:inline-block;margin-top:8px;}
+  .role.community{background:rgba(107,165,107,0.18);color:#a9d8a4;border:1px solid rgba(107,165,107,0.4);}
+  .role.academic{background:rgba(47,163,163,0.18);color:#8FE0DA;border:1px solid rgba(47,163,163,0.4);}
+  .role.template{background:rgba(201,169,97,0.18);color:#EAD49A;border:1px solid rgba(201,169,97,0.4);}
+  .status{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+  .pulse{display:inline-flex;align-items:center;gap:7px;font-size:0.66rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(244,239,226,0.7);}
+  .pulse .led{width:8px;height:8px;border-radius:50%;background:#8FE0DA;box-shadow:0 0 0 0 rgba(143,224,218,0.6);animation:beat 2s infinite;}
+  .pulse.sim .led{background:var(--gold);box-shadow:0 0 0 0 rgba(201,169,97,0.6);}
+  @keyframes beat{0%{box-shadow:0 0 0 0 rgba(143,224,218,0.55);}70%{box-shadow:0 0 0 7px rgba(143,224,218,0);}100%{box-shadow:0 0 0 0 rgba(143,224,218,0);}}
+  .updated{font-size:0.64rem;color:rgba(244,239,226,0.45);font-family:'JetBrains Mono',monospace;}
+
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  @media(max-width:720px){.metrics{grid-template-columns:repeat(2,1fr);}}
+  .metric{background:rgba(251,249,242,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:15px;padding:16px 16px 14px;}
+  .m-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .m-top .m-ic{width:9px;height:9px;border-radius:3px;}
+  .m-label{font-size:0.66rem;letter-spacing:0.13em;text-transform:uppercase;color:rgba(244,239,226,0.72);}
+  .m-val{display:flex;align-items:baseline;gap:4px;}
+  .m-val .num{font-family:'Fraunces',serif;font-weight:500;font-size:1.9rem;color:#fff;line-height:1;}
+  .m-val .unit{font-size:0.8rem;color:rgba(244,239,226,0.6);}
+  .spark{width:100%;height:34px;margin-top:8px;display:block;}
+  .m-range{height:4px;border-radius:4px;background:rgba(255,255,255,0.1);margin-top:9px;overflow:hidden;}
+  .m-range .fill{display:block;height:100%;border-radius:4px;transition:width .6s ease;}
+
+  .template-note{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 32px;margin-top:6px;}
+  .template-note .eyebrow{margin-bottom:12px;}
+  .template-note h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;margin-bottom:12px;}
+  .template-note p{color:var(--ink-soft);font-size:0.96rem;line-height:1.65;margin-bottom:12px;}
+  .build{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+  .build .chip{font-size:0.74rem;background:var(--cream-deep);border:1px solid var(--line);border-radius:30px;padding:7px 14px;color:var(--ink);}
+  .build .chip b{color:var(--moss);font-weight:500;}
+
+  .open{background:var(--moss-deep);color:#f4efe2;border-radius:18px;padding:28px 32px;margin-top:24px;}
+  .open .eyebrow{color:#E3CE97;}
+  .open h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.4rem;color:#fff;margin:10px 0 12px;}
+  .open p{color:rgba(244,239,226,0.82);font-size:0.94rem;line-height:1.65;max-width:760px;}
+  .open code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:rgba(0,0,0,0.28);padding:2px 7px;border-radius:6px;color:#EAD49A;}
+  .schema{margin-top:16px;background:rgba(0,0,0,0.25);border:1px solid rgba(227,206,151,0.2);border-radius:12px;padding:16px 18px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#cfe7df;overflow-x:auto;line-height:1.6;}
+
+  footer{padding:40px 0;text-align:center;color:var(--ink-soft);font-size:0.8rem;}
+  footer a{color:var(--moss);text-decoration:none;}
+</style>
+</head>
+<body>
+<nav>
+  <div class="brand">
+    <svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 42,56 36,62 36 C72 36,78 44,78 52 C78 66,66 76,52 76 C32 76,20 62,20 46 C20 24,36 10,54 10 C78 10,94 30,94 54 C94 82,74 100,48 100" stroke="#C9A961" stroke-width="3" stroke-linecap="round"/></svg>
+    <span><span class="real">REAL</span> Living Lab</span>
+  </div>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="lab-network.html">Network</a><a href="danu.html" style="margin-left:20px;">DANÚ</a><a href="evidence-reels.html" style="margin-left:20px;">Evidence</a>
+    <a href="start-a-site.html">Start a site</a>
+    <a href="badge-lab.html">Badge Lab</a>
+    <a href="biodiversity-heroes.html">Heroes</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">The Lab Network · Live environmental data</span>
+    <h1>Three sites, <em>one repeatable design.</em></h1>
+    <p>Each teaching site streams the same four readings, so a child at DANÚ, a student at ATU, and anyone who copies the template greenhouse are all doing the same science in their own ground. The data is open. The design is meant to be copied.</p>
+    <div class="legend">
+      <span class="lg"><span class="dot" style="background:var(--water)"></span>Water</span>
+      <span class="lg"><span class="dot" style="background:var(--humid)"></span>Humidity</span>
+      <span class="lg"><span class="dot" style="background:var(--light)"></span>Light</span>
+      <span class="lg"><span class="dot" style="background:var(--soil)"></span>Soil quality</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap" id="sites"></div>
+
+  <div class="wrap">
+    <div class="template-note">
+      <span class="eyebrow">The Template</span>
+      <h3>Built once, copied anywhere.</h3>
+      <p>The template greenhouse is the proving node. Over the summer it is built and documented as an open blueprint, so any school, community garden or partner site can replicate it and join the network. The physics department's working prototype runs a solar panel and sensor boxes, and a soil-quality sensor is being added to complete the set.</p>
+      <p style="color:rgba(244,239,226,0.7);font-size:0.85rem;margin-top:-2px;">Sensor design developed in collaboration with Dr Mossy Kelly and his students, ATU Physics Department.</p>
+      <div class="build">
+        <span class="chip"><b>Power</b> · solar panel</span>
+        <span class="chip"><b>Water</b> · moisture sensor</span>
+        <span class="chip"><b>Humidity</b> · air sensor</span>
+        <span class="chip"><b>Light</b> · light sensor</span>
+        <span class="chip"><b>Soil</b> · quality sensor (adding)</span>
+      </div>
+      <div style="margin-top:20px;"><a href="start-a-site.html" style="display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:40px;text-decoration:none;background:#33503F;color:#FBF9F2;font-size:0.88rem;letter-spacing:0.04em;">Start a site of your own →</a></div>
+    </div>
+
+    <div class="open">
+      <span class="eyebrow">Open data, by design</span>
+      <h3>Every reading is published.</h3>
+      <p>Readings stream live below. Until the rigs are connected, each panel shows a realistic simulated feed so the network is alive from day one. To connect a real site, point it at a JSON feed that returns the four readings, and the dashboard switches from simulated to live automatically. The expected shape is small and open:</p>
+      <div class="schema">{
+  "site": "danu",
+  "timestamp": "2026-06-08T11:40:00Z",
+  "water": 58.2,      // soil/water moisture, %
+  "humidity": 64.0,   // air humidity, %
+  "light": 41850,     // light level, lux
+  "soil": 72.5        // soil quality index, 0-100
+}</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">A network of the <a href="index.html">REAL Living Lab</a>, ATU and Gairdín DANÚ · Open data, CC BY-SA 4.0 · <a href="index.html#framework">Framework</a></div>
+</footer>
+
+<script>
+/* ============================================================
+   DATA SOURCE CONFIG
+   To connect a real site, set its dataUrl to a JSON endpoint
+   that returns the schema shown above. While dataUrl is null,
+   the site runs on a realistic simulated feed.
+   ============================================================ */
+const SITES = [
+  { id:'danu',     name:'Gairdín DANÚ',        role:'community', label:'Community site',  loc:'Annaghdown, Co. Galway',     dataUrl:null, base:{water:60, soil:74, lightPeak:38000} },
+  { id:'atu',      name:'ATU Greenhouse',      role:'academic',  label:'Academic site',   loc:'Atlantic Technological University', dataUrl:null, base:{water:54, soil:66, lightPeak:30000} },
+  { id:'template', name:'Template Greenhouse', role:'template',  label:'Replicable template', loc:'Proving node · build in progress', dataUrl:null, base:{water:57, soil:70, lightPeak:42000} },
+];
+
+const METRICS = [
+  { key:'water',    label:'Water',        unit:'%',   color:'var(--water)', max:100 },
+  { key:'humidity', label:'Humidity',     unit:'%',   color:'var(--humid)', max:100 },
+  { key:'light',    label:'Light',        unit:'lux', color:'var(--light)', max:60000 },
+  { key:'soil',     label:'Soil quality', unit:'',    color:'var(--soil)',  max:100 },
+];
+const HISTORY = 40;
+
+// ----- build DOM -----
+const root = document.getElementById('sites');
+const state = {};
+SITES.forEach(s=>{
+  state[s.id] = { vt: new Date().getHours() + new Date().getMinutes()/60, hist:{}, walk:{ water:s.base.water, soil:s.base.soil } };
+  METRICS.forEach(m=> state[s.id].hist[m.key]=[]);
+  const panel = document.createElement('div');
+  panel.className='site';
+  panel.innerHTML = `
+    <div class="site-head">
+      <div>
+        <h2>${s.name}</h2>
+        <div class="loc">${s.loc}</div>
+        <span class="role ${s.role}">${s.label}</span>
+      </div>
+      <div class="status">
+        <span class="pulse ${s.dataUrl?'':'sim'}"><span class="led"></span>${s.dataUrl?'Live':'Simulated'}</span>
+        <span class="updated" id="upd-${s.id}">--:--:--</span>
+      </div>
+    </div>
+    <div class="metrics">
+      ${METRICS.map(m=>`
+        <div class="metric">
+          <div class="m-top"><span class="m-ic" style="background:${m.color}"></span><span class="m-label">${m.label}</span></div>
+          <div class="m-val"><span class="num" id="${s.id}-${m.key}-v">--</span><span class="unit">${m.unit}</span></div>
+          <svg class="spark" id="${s.id}-${m.key}-s" viewBox="0 0 100 34" preserveAspectRatio="none"><polyline fill="none" stroke="${m.color}" stroke-width="1.6" points=""/></svg>
+          <div class="m-range"><span class="fill" id="${s.id}-${m.key}-r" style="background:${m.color};width:0%"></span></div>
+        </div>`).join('')}
+    </div>`;
+  root.appendChild(panel);
+});
+
+// ----- simulation (realistic diurnal) -----
+function simulate(s){
+  const st = state[s.id];
+  st.vt = (st.vt + 0.25) % 24;                 // advance 15 virtual minutes per tick
+  const day = Math.max(0, Math.sin((st.vt-6)/12*Math.PI)); // 0 at night, 1 midday
+  const noise = (a)=> (Math.random()-0.5)*a;
+  st.walk.water = clamp(st.walk.water + noise(1.2), 40, 78);
+  st.walk.soil  = clamp(st.walk.soil  + noise(0.8), 50, 92);
+  return {
+    water: st.walk.water,
+    humidity: clamp(58 + (1-day)*26 - day*6 + noise(3), 32, 96),
+    light: Math.round(Math.max(0, day*s.base.lightPeak + noise(1500)*day)),
+    soil: st.walk.soil,
+    timestamp: new Date().toISOString()
+  };
+}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+async function readSite(s){
+  if(s.dataUrl){
+    try{ const r = await fetch(s.dataUrl,{cache:'no-store'}); return await r.json(); }
+    catch(e){ return simulate(s); }   // fall back gracefully
+  }
+  return simulate(s);
+}
+
+function fmt(key,v){
+  if(key==='light') return v>=1000 ? (v/1000).toFixed(1)+'k' : Math.round(v);
+  return v.toFixed(1);
+}
+function drawSpark(id, arr, max){
+  const el = document.querySelector('#'+id+' polyline');
+  if(!el || arr.length<2) return;
+  const n = arr.length, pts = arr.map((v,i)=>{
+    const x = (i/(HISTORY-1))*100;
+    const y = 32 - (Math.min(v,max)/max)*30;
+    return x.toFixed(1)+','+y.toFixed(1);
+  }).join(' ');
+  el.setAttribute('points', pts);
+}
+
+async function tick(){
+  for(const s of SITES){
+    const d = await readSite(s);
+    const st = state[s.id];
+    METRICS.forEach(m=>{
+      const v = +d[m.key];
+      st.hist[m.key].push(v); if(st.hist[m.key].length>HISTORY) st.hist[m.key].shift();
+      const vEl = document.getElementById(`${s.id}-${m.key}-v`);
+      if(vEl) vEl.textContent = fmt(m.key, v);
+      const rEl = document.getElementById(`${s.id}-${m.key}-r`);
+      if(rEl) rEl.style.width = Math.min(100,(v/m.max)*100)+'%';
+      drawSpark(`${s.id}-${m.key}-s`, st.hist[m.key], m.key==='light'?m.max:Math.max(m.max,1));
+    });
+    const u = document.getElementById('upd-'+s.id);
+    if(u) u.textContent = new Date(d.timestamp||Date.now()).toLocaleTimeString('en-IE');
+  }
+}
+// prime a little history so sparklines look alive immediately
+(async()=>{ for(let i=0;i<HISTORY;i++){ await tick(); } })();
+setInterval(tick, 2500);
+</script>
+</body>
+</html>

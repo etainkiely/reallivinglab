@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Badge Lab — Mother Nature's Biodiversity Heroes · REAL Living Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{--cream:#FBF9F2;--cream-deep:#F1EADA;--ink:#22241F;--ink-soft:#5b5d53;--gold:#C9A961;--moss:#33503F;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Jost',sans-serif;font-weight:300;color:var(--ink);
+    background:radial-gradient(60% 50% at 50% 0%,#FFFDF6,transparent 70%),radial-gradient(90% 80% at 50% 120%,#E9E1CD,transparent 60%),var(--cream);
+    min-height:100vh;padding:48px 22px 80px;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1000px;margin:0 auto;}
+  .head{text-align:center;max-width:720px;margin:0 auto 38px;}
+  .eyebrow{font-weight:500;letter-spacing:0.24em;text-transform:uppercase;font-size:0.7rem;color:var(--gold);display:inline-flex;align-items:center;gap:9px;margin-bottom:16px;}
+  .eyebrow::before,.eyebrow::after{content:"";width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+  .head h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2rem,5vw,3rem);line-height:1.08;letter-spacing:-0.015em;}
+  .head h1 em{font-style:italic;color:var(--moss);}
+  .head p{margin-top:14px;color:var(--ink-soft);font-size:1rem;line-height:1.6;}
+  .lab{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
+  @media(max-width:780px){.lab{grid-template-columns:1fr;}}
+  .panel{background:#fff;border:1px solid rgba(34,36,31,0.12);border-radius:20px;padding:26px;box-shadow:0 20px 50px -28px rgba(34,36,31,0.3);}
+  .drop{border:2px dashed rgba(201,169,97,0.6);border-radius:14px;padding:30px 18px;text-align:center;cursor:pointer;transition:.25s;background:#FBF9F2;}
+  .drop:hover,.drop.over{background:#F6F0E0;border-color:var(--gold);}
+  .drop .big{font-family:'Fraunces',serif;font-size:1.15rem;color:var(--ink);}
+  .drop .small{font-size:0.82rem;color:var(--ink-soft);margin-top:5px;}
+  .preview{margin-top:16px;border-radius:12px;overflow:hidden;display:none;border:1px solid rgba(34,36,31,0.12);}
+  .preview img{width:100%;display:block;max-height:260px;object-fit:cover;}
+  .field{margin-top:16px;}
+  .field label{display:block;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px;}
+  .field input{width:100%;padding:11px 13px;border:1px solid rgba(34,36,31,0.18);border-radius:10px;font-family:'Jost';font-size:0.95rem;}
+  .field input:focus{outline:none;border-color:var(--gold);}
+  .hint{font-size:0.74rem;color:var(--ink-soft);margin-top:6px;line-height:1.5;}
+  .go{margin-top:20px;width:100%;padding:15px;border:none;border-radius:40px;cursor:pointer;background:var(--moss);color:var(--cream);font-family:'Jost';font-weight:500;letter-spacing:0.06em;font-size:0.95rem;transition:.2s;box-shadow:0 10px 26px -8px rgba(51,80,63,0.5);}
+  .go:hover:not(:disabled){transform:translateY(-2px);}
+  .go:disabled{opacity:0.5;cursor:not-allowed;}
+  .status{margin-top:14px;text-align:center;font-size:0.9rem;color:var(--moss);min-height:20px;font-style:italic;font-family:'Fraunces';}
+  .status.err{color:#a3442f;font-style:normal;font-family:'Jost';}
+  .result{display:flex;flex-direction:column;align-items:center;gap:14px;min-height:200px;justify-content:center;}
+  .placeholder{text-align:center;color:var(--ink-soft);font-size:0.9rem;max-width:300px;line-height:1.6;}
+
+  /* CARD (identical system to the gallery) */
+  .card{--accent:#C9A961;--accent-soft:#EAD49A;--bg1:#241f16;--bg2:#15120c;--foil:0.2;
+    position:relative;width:340px;height:560px;border-radius:22px;color:#f4efe2;background:linear-gradient(160deg,var(--bg1),var(--bg2));
+    box-shadow:0 30px 60px -20px rgba(20,18,14,0.55);border:1px solid rgba(201,169,97,0.35);overflow:hidden;}
+  .card::before{content:"";position:absolute;inset:9px;border-radius:15px;pointer-events:none;z-index:6;border:1.5px solid transparent;
+    background:linear-gradient(140deg,var(--accent-soft),rgba(201,169,97,0.15) 30%,transparent 50%,rgba(201,169,97,0.15) 70%,var(--accent-soft)) border-box;
+    -webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0.85;}
+  .foilwrap{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:var(--foil);background:linear-gradient(115deg,transparent 25%,var(--accent-soft) 40%,#9fe6da 47%,#f3d59a 54%,transparent 72%);background-size:260% 260%;mix-blend-mode:color-dodge;}
+  .ci{position:absolute;inset:0;padding:18px 18px 14px;display:flex;flex-direction:column;z-index:2;}
+  .ctop{display:flex;justify-content:space-between;align-items:flex-start;}
+  .rating{display:flex;flex-direction:column;align-items:flex-start;line-height:1;}
+  .rating .num{font-family:'Fraunces';font-weight:500;font-size:2.7rem;color:var(--accent-soft);}
+  .rating .cls{font-weight:600;letter-spacing:0.16em;text-transform:uppercase;font-size:0.62rem;margin-top:3px;opacity:0.9;}
+  .rating .pips{display:flex;gap:3px;margin-top:6px;}
+  .rating .pips i{width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .rating .pips i.off{background:rgba(255,255,255,0.2);}
+  .cright{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+  .iucn{font-family:'Fraunces';font-weight:600;font-size:1.1rem;color:#11140f;padding:3px 11px;border-radius:8px;letter-spacing:0.04em;}
+  .iucn-lab{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(244,239,226,0.85);margin-top:5px;}
+  .cphoto{position:relative;margin:12px -2px 0;height:150px;border-radius:13px;overflow:hidden;border:1px solid rgba(201,169,97,0.3);background:#0c0b09;}
+  .cphoto img{width:100%;height:100%;object-fit:cover;display:block;}
+  .ph-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(12,11,9,0.6));}
+  .lock{position:absolute;left:9px;bottom:9px;z-index:2;display:inline-flex;align-items:center;gap:5px;background:rgba(8,16,16,0.8);border:1px solid rgba(143,224,218,0.4);color:#bfeee0;font-size:0.54rem;letter-spacing:0.07em;text-transform:uppercase;padding:4px 8px;border-radius:20px;}
+  .tbc{position:absolute;right:9px;top:9px;z-index:2;background:rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:0.5rem;letter-spacing:0.08em;text-transform:uppercase;padding:4px 8px;border-radius:20px;}
+  .cname{margin-top:11px;}
+  .cname h2{font-family:'Fraunces';font-weight:500;font-size:1.4rem;line-height:1;text-transform:uppercase;}
+  .cname .sci{margin-top:4px;font-size:0.72rem;color:rgba(244,239,226,0.72);}
+  .cname .sci em{font-style:italic;}
+  .cmid{margin-top:6px;display:flex;justify-content:center;}
+  .radar{width:200px;height:150px;}
+  .bioind{margin-top:2px;}
+  .bi-top{display:flex;justify-content:space-between;align-items:baseline;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(244,239,226,0.7);}
+  .bi-top .bi-v{font-family:'Fraunces';font-size:1rem;color:var(--accent-soft);}
+  .bi-bar{height:6px;border-radius:6px;background:rgba(255,255,255,0.12);margin-top:4px;overflow:hidden;}
+  .bi-bar span{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-soft));box-shadow:0 0 10px var(--accent);}
+  .bi-dim{margin-top:4px;font-size:0.68rem;font-style:italic;font-family:'Fraunces';color:rgba(244,239,226,0.78);}
+  .cflav{margin-top:8px;font-family:'Fraunces';font-style:italic;font-size:0.74rem;line-height:1.36;color:rgba(244,239,226,0.86);flex:1;}
+  .award{font-size:0.56rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:5px;}
+  .cfoot{border-top:1px solid rgba(255,255,255,0.12);padding-top:7px;display:flex;justify-content:space-between;align-items:center;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(244,239,226,0.6);}
+  .cfoot .src{color:var(--accent-soft);opacity:0.8;}
+  .cardactions{display:flex;gap:10px;}
+  .cardactions button{padding:10px 18px;border-radius:30px;border:1px solid rgba(34,36,31,0.2);background:#fff;cursor:pointer;font-family:'Jost';font-size:0.82rem;color:var(--ink);transition:.2s;}
+  .cardactions button:hover{border-color:var(--moss);transform:translateY(-1px);}
+  .cardactions .primary{background:var(--gold);border-color:var(--gold);color:#2a2410;font-weight:500;}
+  .idnote{max-width:320px;text-align:center;font-size:0.74rem;color:var(--ink-soft);line-height:1.5;}
+  .footnote{max-width:760px;margin:38px auto 0;text-align:center;font-size:0.78rem;color:var(--ink-soft);line-height:1.6;}
+  .footnote b{color:var(--ink);font-weight:500;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <span class="eyebrow">REAL Living Lab · ATU · DANÚ</span>
+    <h1>The <em>Badge Lab</em></h1>
+    <p>Photograph something wild. Mother Nature identifies it, reads its rarity from the Red List and its bioindicator value from the science, and the same fixed formula every card uses computes its Hero Rating. Common things can be heroes too.</p>
+  </div>
+  <div class="lab">
+    <div class="panel">
+      <div class="drop" id="drop">
+        <svg width="38" height="38" viewBox="0 0 24 24" fill="none" style="margin-bottom:10px;opacity:.7"><path d="M12 16V4m0 0L7 9m5-5l5 5" stroke="#C9A961" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="#C9A961" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="big">Drop a photo, or tap to choose</div>
+        <div class="small">A plant, animal, fungus, bird or insect. One main subject works best.</div>
+      </div>
+      <input type="file" id="file" accept="image/*" style="display:none" />
+      <div class="preview" id="preview"><img id="previewImg" alt="your photo" /></div>
+      <div class="field"><label for="awarded">Award this badge to (optional)</label>
+        <input id="awarded" type="text" placeholder="e.g. Annaghdown National School, or Saoirse, age 8" /></div>
+      <div class="field"><label for="region">Where, county only (optional)</label>
+        <input id="region" type="text" placeholder="e.g. Co. Galway" />
+        <div class="hint">We only ever ask for a county. Precise locations are never stored, and protected species are obscured by design.</div></div>
+      <button class="go" id="go" disabled>Scan &amp; award badge</button>
+      <div class="status" id="status"></div>
+    </div>
+    <div class="result" id="result">
+      <div class="placeholder" id="placeholder">
+        <svg width="46" height="46" viewBox="0 0 100 100" fill="none" style="opacity:.35;margin-bottom:10px"><path d="M50 50 C50 44,55 39,60 39 C68 39,73 46,73 52 C73 63,64 71,53 71 C37 71,26 59,26 46 C26 28,40 16,55 16" stroke="#C9A961" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="50" r="2" fill="#33503F"/></svg>
+        <div>Your hero card will appear here once Mother Nature has had a look.</div>
+      </div>
+    </div>
+  </div>
+  <p class="footnote"><b>How the score is built.</b> Identification is AI-assisted and shown with its confidence; anything uncertain is marked "to be confirmed" for a human recorder before it counts. Rarity is anchored to the species' IUCN Red List category, bioindicator value to documented sensitivity. The Hero Rating is computed here by a fixed formula (30% role, 25% bioindicator, 20% rarity, 15% legacy, 10% sensitivity), so every card is consistent. Ratings tell a story; they are not a measurement.</p>
+</div>
+
+<script>
+  const IUCN={LC:['#60C659','Least Concern'],NT:['#CCE226','Near Threatened'],VU:['#F9E814','Vulnerable'],EN:['#FC7F3F','Endangered'],CR:['#D81E05','Critically Endangered'],EW:['#542344','Extinct in Wild'],EX:['#000000','Extinct'],NE:['#B7B7A4','Not Red-Listed'],DD:['#D1D1C6','Data Deficient']};
+  const ACCENTS={ember:{a:'#D98A3D',s:'#F0C58A',b1:'#241c14',b2:'#14100b'},green:{a:'#5FA76A',s:'#A9D8A4',b1:'#15271b',b2:'#0c160f'},teal:{a:'#2FA3A3',s:'#8FE0DA',b1:'#0f2a2d',b2:'#08191b'},gold:{a:'#C9A961',s:'#EAD49A',b1:'#241f16',b2:'#15120c'}};
+  const AX=[['rarity','RAR'],['indicator','IND'],['role','ROLE'],['sensitivity','SEN'],['range','RNG'],['legacy','LEG']];
+  const ANG=[-90,-30,30,90,150,210];
+  const FOIL={Common:0.0,Uncommon:0.12,Notable:0.22,Epic:0.4,Legendary:0.6};
+  const PIPS={Common:1,Uncommon:2,Notable:3,Epic:4,Legendary:5};
+
+  const $=id=>document.getElementById(id);
+  let imgDataUrl=null, mediaType=null;
+  const drop=$('drop'),file=$('file'),go=$('go'),status=$('status');
+  drop.onclick=()=>file.click();
+  drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('over');});
+  drop.addEventListener('dragleave',()=>drop.classList.remove('over'));
+  drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('over');if(e.dataTransfer.files[0])loadFile(e.dataTransfer.files[0]);});
+  file.addEventListener('change',e=>{if(e.target.files[0])loadFile(e.target.files[0]);});
+  function loadFile(f){if(!f.type.startsWith('image/')){setStatus('Please choose an image file.',true);return;}mediaType=f.type;const r=new FileReader();r.onload=()=>{imgDataUrl=r.result;$('previewImg').src=imgDataUrl;$('preview').style.display='block';go.disabled=false;setStatus('');};r.readAsDataURL(f);}
+  function setStatus(t,err){status.textContent=t;status.className='status'+(err?' err':'');}
+
+  function pt(v,a,cx,cy,R){const r=R*v/100,rad=a*Math.PI/180;return [cx+r*Math.cos(rad),cy+r*Math.sin(rad)];}
+  function radarSVG(scores,soft){
+    const cx=100,cy=80,R=60;let g='';
+    [25,50,75,100].forEach(ring=>{g+=`<polygon points="${ANG.map(a=>pt(ring,a,cx,cy,R).map(n=>n.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>`;});
+    ANG.forEach(a=>{const[x,y]=pt(100,a,cx,cy,R);g+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>`;});
+    const vals=AX.map(([k])=>Math.max(0,Math.min(100,scores[k]||0)));
+    const valpts=ANG.map((a,i)=>pt(vals[i],a,cx,cy,R));
+    g+=`<polygon points="${valpts.map(p=>p.map(n=>n.toFixed(1)).join(',')).join(' ')}" fill="${soft}" fill-opacity="0.22" stroke="${soft}" stroke-width="2"/>`;
+    valpts.forEach(p=>{g+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.2" fill="${soft}"/>`;});
+    AX.forEach(([k,lab],i)=>{const[x,y]=pt(118,ANG[i],cx,cy,R);let anc='middle',dy=3;if(x<cx-6)anc='end';else if(x>cx+6)anc='start';if(ANG[i]===-90)dy=-2;if(ANG[i]===90)dy=8;g+=`<text x="${x.toFixed(1)}" y="${(y+dy).toFixed(1)}" text-anchor="${anc}" font-size="8.5" font-family="Jost" font-weight="500" fill="rgba(244,239,226,0.65)">${lab}</text>`;});
+    return `<svg viewBox="0 0 200 168" width="100%" height="100%">${g}</svg>`;
+  }
+
+  go.onclick=identify;
+  async function identify(){
+    if(!imgDataUrl)return; go.disabled=true; setStatus('Mother Nature is looking closely...');
+    const base64=imgDataUrl.split(',')[1];
+    const sys=`You are Mother Nature, the naturalist voice of the REAL Living Lab, an ENoLL-aligned citizen science living lab at Atlantic Technological University and Gairdín DANÚ in the west of Ireland. A citizen has photographed something in nature. Identify it honestly and score it for a Biodiversity Hero card.
+You provide GROUNDED COMPONENT SCORES only. The card's overall rating is computed elsewhere by a fixed formula, so do not invent an overall number.
+Rules:
+- Identify the single main living organism. Be honest about uncertainty: if unsure set confidence "medium" or "low" and explain how to confirm in id_note. Never bluff.
+- iucn_category: the species' IUCN Red List category if known (one of LC, NT, VU, EN, CR, EW, EX), or NE if not assessed, or DD if data deficient.
+- Provide six scores 0-100:
+  * rarity: anchor to iucn_category (LC about 10-25, NT 30-45, VU 50-65, EN 70-85, CR 88-98), adjusted by how common locally; a widespread Least Concern species is low.
+  * indicator: how strongly it signals environmental health, from documented indicator status (e.g. otters and mayflies for clean water, lichens for air, waxcaps for old grassland). Common but non-indicator species are low.
+  * role: ecological/functional importance (keystone or ecosystem engineer highest, then predators, pollinators, decomposers, producers).
+  * sensitivity: how vulnerable it is to disturbance, pollution or habitat loss.
+  * range: how widespread its distribution is (widespread high, localised low).
+  * legacy: cultural, historical and temporal significance (folklore, traditional use, longevity).
+- indicator_dimension: a short phrase naming what it indicates (e.g. "Clean water & healthy rivers").
+- location_sensitive: true for protected or collectable species that could be harmed by their location being known (otters, raptors, rare orchids, rare/collectable fungi, nests/dens). For these the place is kept secret.
+- accent: "ember" fungi/wood/fire, "green" plants/amphibians/land, "teal" water/birds/aquatic, "gold" otherwise.
+- role_word: one short uppercase role label (e.g. DECOMPOSER, POLLINATOR, INDICATOR, APEX INDICATOR, BUILDER, PRODUCER).
+- flavour: Mother Nature in the first person, warm and true, 2-4 short sentences a child and grandparent would both enjoy, ending on care; if location_sensitive, include that you keep its place secret.
+- If the image is NOT a living thing, set is_living_thing false and put a kind one-line message in flavour.
+Return ONLY valid minified JSON, no markdown, no code fences, with exactly:
+{"is_living_thing":boolean,"common_name":string,"scientific_name":string,"confidence":"high"|"medium"|"low","id_note":string,"iucn_category":string,"role_word":string,"scores":{"rarity":number,"indicator":number,"role":number,"sensitivity":number,"range":number,"legacy":number},"indicator_dimension":string,"location_sensitive":boolean,"accent":"ember"|"green"|"teal"|"gold","flavour":string}`;
+    try{
+      const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,system:sys,
+          messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:mediaType,data:base64}},{type:"text",text:"Identify and score this for the REAL Living Lab. Honesty over confidence, role over rarity, protect sensitive locations. Return only the JSON."}]}]})});
+      const data=await res.json();
+      let text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('').trim();
+      text=text.replace(/^```json/i,'').replace(/^```/,'').replace(/```$/,'').trim();
+      const a=text.indexOf('{'),b=text.lastIndexOf('}');if(a>=0&&b>=0)text=text.slice(a,b+1);
+      render(JSON.parse(text)); setStatus('');
+    }catch(err){setStatus('Something went wrong reading the answer. Please try again, or try a clearer photo.',true);go.disabled=false;console.error(err);}
+  }
+
+  function heroRating(s){return Math.round(0.30*s.role+0.25*s.indicator+0.20*s.rarity+0.15*s.legacy+0.10*s.sensitivity);}
+  function heroClass(r){return r>=85?'Legendary':r>=70?'Epic':r>=55?'Notable':r>=40?'Uncommon':'Common';}
+
+  function render(d){
+    const result=$('result');
+    if(d.is_living_thing===false){
+      result.innerHTML=`<div class="placeholder"><div style="font-family:Fraunces;font-style:italic;font-size:1.1rem;color:#33503F;margin-bottom:8px;">Not one of mine just yet.</div><div>${esc(d.flavour||'That does not look like a living thing. Try a plant, an animal or a fungus.')}</div></div>`;
+      go.disabled=false; const act=document.createElement('div');act.className='cardactions';const ag=document.createElement('button');ag.textContent='Try another';ag.onclick=reset;act.appendChild(ag);result.appendChild(act);return;
+    }
+    const s=d.scores||{}; const rating=heroRating(s); const cl=heroClass(rating);
+    const acc=ACCENTS[d.accent]||ACCENTS.gold;
+    const cat=(d.iucn_category||'NE').toUpperCase(); const [icol,ilab]=IUCN[cat]||IUCN.NE;
+    const pipsOn=PIPS[cl]; const pips=Array.from({length:5},(_,i)=>`<i class="${i<pipsOn?'':'off'}"></i>`).join('');
+    const awarded=($('awarded').value||'').trim();
+    const lowConf=d.confidence&&d.confidence!=='high';
+    const lock=d.location_sensitive?`<span class="lock"><svg width="9" height="9" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#bfeee0" stroke-width="2.4"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#bfeee0" stroke-width="2.4"/></svg>Location protected</span>`:'';
+    const tbc=lowConf?`<span class="tbc">To be confirmed</span>`:'';
+    const card=document.createElement('div'); card.className='card class-'+cl.toLowerCase(); card.id='heroCard';
+    card.style.setProperty('--accent',acc.a);card.style.setProperty('--accent-soft',acc.s);card.style.setProperty('--bg1',acc.b1);card.style.setProperty('--bg2',acc.b2);card.style.setProperty('--foil',FOIL[cl]);
+    card.innerHTML=`<div class="foilwrap"></div><div class="ci">
+      <div class="ctop">
+        <div class="rating"><span class="num">${rating}</span><span class="cls">${cl}</span><span class="pips">${pips}</span></div>
+        <div class="cright"><span class="iucn" style="background:${icol};box-shadow:0 0 16px -2px ${icol};">${cat}</span><span class="iucn-lab">${ilab}</span></div>
+      </div>
+      <div class="cphoto"><img src="${imgDataUrl}" crossorigin="anonymous" alt="${esc(d.common_name||'sighting')}"/><span class="ph-grad"></span>${lock}${tbc}</div>
+      <div class="cname"><h2>${esc(d.common_name||'Unknown')}</h2><div class="sci"><em>${esc(d.scientific_name||'')}</em></div></div>
+      <div class="cmid"><div class="radar">${radarSVG(s,acc.s)}</div></div>
+      <div class="bioind"><div class="bi-top"><span>BIOINDICATOR</span><span class="bi-v">${Math.round(s.indicator||0)}</span></div>
+        <div class="bi-bar"><span style="width:${Math.max(0,Math.min(100,s.indicator||0))}%"></span></div>
+        <div class="bi-dim">${esc(d.indicator_dimension||'')}</div></div>
+      <p class="cflav">${esc(d.flavour||'')}</p>
+      ${awarded?`<div class="award">Awarded to ${esc(awarded)}</div>`:''}
+      <div class="cfoot"><span>${esc((d.role_word||'HERO').toUpperCase())}</span><span class="src">IUCN · GBIF/NBDC</span></div>
+    </div>`;
+    result.innerHTML=''; result.appendChild(card);
+    if(lowConf){const n=document.createElement('div');n.className='idnote';n.textContent=d.id_note?('Mother Nature is not fully certain: '+d.id_note):'Marked to be confirmed by a human recorder before it counts as a record.';result.appendChild(n);}
+    const act=document.createElement('div');act.className='cardactions';
+    const dl=document.createElement('button');dl.className='primary';dl.textContent='Download card';dl.onclick=downloadCard;
+    const ag=document.createElement('button');ag.textContent='Scan another';ag.onclick=reset;
+    act.appendChild(dl);act.appendChild(ag);result.appendChild(act); go.disabled=false;
+  }
+  function downloadCard(){const c=$('heroCard');if(!c||!window.html2canvas)return;html2canvas(c,{backgroundColor:null,scale:2,useCORS:true}).then(cv=>{const l=document.createElement('a');l.download='biodiversity-hero.png';l.href=cv.toDataURL('image/png');l.click();});}
+  function reset(){imgDataUrl=null;mediaType=null;file.value='';$('preview').style.display='none';$('result').innerHTML=`<div class="placeholder"><svg width="46" height="46" viewBox="0 0 100 100" fill="none" style="opacity:.35;margin-bottom:10px"><path d="M50 50 C50 44,55 39,60 39 C68 39,73 46,73 52 C73 63,64 71,53 71 C37 71,26 59,26 46 C26 28,40 16,55 16" stroke="#C9A961" stroke-width="4" stroke-linecap="round"/></svg><div>Your hero card will appear here once Mother Nature has had a look.</div></div>`;go.disabled=true;setStatus('');}
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+</script>
+</body>
+</html>

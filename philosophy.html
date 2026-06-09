@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Practice of Attention — REAL Living Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--cream:#FBF9F2;--cream-deep:#F1EADA;--ink:#22241F;--ink-soft:#4A4D44;--teal:#1B4F5C;--moss:#33503F;--gold:#C9A961;--gold-soft:#E3CE97;--line:rgba(34,36,31,0.12);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:radial-gradient(70% 60% at 70% 0%,#FFFDF6,transparent 70%),var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;padding:60px 24px 80px;}
+  .wrap{max-width:860px;margin:0 auto;}
+  .label{font-weight:500;letter-spacing:0.2em;text-transform:uppercase;font-size:0.7rem;color:var(--gold);display:inline-flex;align-items:center;gap:9px;margin-bottom:14px;}
+  .label::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
+  h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2.2rem,5vw,3.2rem);line-height:1.1;letter-spacing:-0.015em;}
+  h1 em{font-style:italic;color:var(--moss);}
+  .statement{font-family:'Fraunces',serif;font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.4;margin-top:24px;color:var(--ink);}
+  .statement em{font-style:italic;color:var(--teal);}
+  .sub{margin-top:18px;color:var(--ink-soft);font-size:1.08rem;max-width:680px;}
+
+  .diagram{margin:54px 0;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 20px 24px;box-shadow:0 20px 50px -30px rgba(34,36,31,0.3);}
+  svg{width:100%;height:auto;display:block;}
+
+  .ground{text-align:center;margin-top:8px;}
+  .ground .ways{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:var(--teal);}
+  .ground .ark{margin-top:8px;font-size:0.92rem;color:var(--ink-soft);}
+  .ground .ark b{color:var(--moss);font-weight:500;}
+
+  h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.5rem;margin:48px 0 10px;}
+  p.body{color:var(--ink-soft);font-size:1.02rem;}
+  .lineage{margin-top:22px;display:grid;gap:14px;}
+  .q{background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:18px 22px;}
+  .q .t{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:var(--ink);}
+  .q .who{font-size:0.8rem;color:var(--ink-soft);margin-top:6px;letter-spacing:0.03em;}
+  .q .who b{color:var(--moss);font-weight:500;}
+  .note{margin-top:30px;font-size:0.82rem;color:var(--ink-soft);font-style:italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="label">Our thinking</span>
+  <h1>The practice of <em>attention.</em></h1>
+  <p class="statement">Everything here rests on one practice: <em>paying attention</em>. We form ARKs, small patches returned to flourishing, and we learn to watch nature unfold. Attention turned three ways, toward yourself, toward each other, and toward the living world.</p>
+  <p class="sub">It is the same faculty whether you are watching a tadpole become a frog, steadying your own breathing, or listening to a child who does not use words. Cultivate attention, and the science, the kindness and the making all follow from it.</p>
+
+  <div class="diagram">
+    <svg viewBox="0 0 720 470" role="img" aria-label="Attentiveness at the centre, with three modes cycling around it: notice, learn and make.">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0 1 L9 5 L0 9 z" fill="#C9A961"/>
+        </marker>
+      </defs>
+      <!-- title -->
+      <text x="360" y="34" text-anchor="middle" font-family="Jost,sans-serif" font-weight="500" font-size="12" letter-spacing="3" fill="#C9A961">THE PRACTICE WE CULTIVATE</text>
+      <!-- centre -->
+      <circle cx="360" cy="235" r="74" fill="#1E3127"/>
+      <text x="360" y="228" text-anchor="middle" font-family="Fraunces,serif" font-size="22" fill="#E3CE97">Attention</text>
+      <text x="360" y="252" text-anchor="middle" font-family="Jost,sans-serif" font-size="10.5" letter-spacing="1.5" fill="rgba(251,249,242,0.7)">DELICATE · PATIENT · KIND</text>
+
+      <!-- cycle arrows (clockwise) -->
+      <path d="M300 120 A 150 150 0 0 1 560 215" fill="none" stroke="#C9A961" stroke-width="2" marker-end="url(#arrow)" opacity="0.85"/>
+      <path d="M560 290 A 150 150 0 0 1 360 405" fill="none" stroke="#C9A961" stroke-width="2" marker-end="url(#arrow)" opacity="0.85"/>
+      <path d="M250 380 A 150 150 0 0 1 200 150" fill="none" stroke="#C9A961" stroke-width="2" marker-end="url(#arrow)" opacity="0.85"/>
+
+      <!-- node: NOTICE (top-left) -->
+      <circle cx="200" cy="110" r="58" fill="#fff" stroke="#2FA3A3" stroke-width="2"/>
+      <text x="200" y="100" text-anchor="middle" font-family="Fraunces,serif" font-size="17" fill="#1B4F5C">Notice</text>
+      <text x="200" y="120" text-anchor="middle" font-family="Jost,sans-serif" font-size="9.5" fill="#4A4D44">Citizen science</text>
+      <text x="200" y="180" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="#4A4D44" font-style="italic">see what is really there</text>
+
+      <!-- node: LEARN / BIOMIMICRY (top-right, the hinge) -->
+      <circle cx="560" cy="150" r="58" fill="#fff" stroke="#C9A961" stroke-width="2.5"/>
+      <text x="560" y="140" text-anchor="middle" font-family="Fraunces,serif" font-size="17" fill="#8a6d22">Learn</text>
+      <text x="560" y="160" text-anchor="middle" font-family="Jost,sans-serif" font-size="9.5" fill="#4A4D44">Biomimicry</text>
+      <text x="560" y="222" text-anchor="middle" font-family="Jost,sans-serif" font-size="10" fill="#8a6d22" font-style="italic">the hinge: how life solves it</text>
+
+      <!-- node: MAKE (bottom) -->
+      <circle cx="360" cy="410" r="58" fill="#fff" stroke="#33503F" stroke-width="2"/>
+      <text x="360" y="404" text-anchor="middle" font-family="Fraunces,serif" font-size="17" fill="#33503F">Make</text>
+      <text x="360" y="424" text-anchor="middle" font-family="Jost,sans-serif" font-size="9.5" fill="#4A4D44">Engineering</text>
+    </svg>
+    <div class="ground">
+      <div class="ways">turned three ways: toward yourself · toward each other · toward the living world</div>
+      <div class="ark">Each site is an <b>ARK</b>, an Act of Restorative Kindness: a patch returned to flourishing, and watched as it does.</div>
+    </div>
+  </div>
+
+  <h2>Why attention, and not a softer word</h2>
+  <p class="body">Attention is not a mood. It is the single faculty that observation, ethics and design all turn out to share, which is why one practice can hold a whole living lab together. Noticing is attention as science. Restorative kindness is attention as care. And biomimicry is the hinge between the two, the moment where what we have noticed in nature becomes something we make. This is the claim worth standing on in a paper and in front of a European panel.</p>
+
+  <div class="lineage">
+    <div class="q"><div class="t">The attentive observation of nature, a delicate empiricism.</div><div class="who"><b>Goethe</b> · attention as science</div></div>
+    <div class="q"><div class="t">Attention is the rarest and purest form of generosity.</div><div class="who"><b>Simone Weil</b>, carried into moral philosophy by <b>Iris Murdoch</b> · attention as ethics</div></div>
+    <div class="q"><div class="t">Understand how life already works before presuming to improve on it.</div><div class="who"><b>Janine Benyus</b>, biomimicry · attention as design</div></div>
+  </div>
+
+  <p class="note">Draft for discussion. Quotations to be verified against primary sources and kept short before publication. "Love bomb" retired in favour of attention and Acts of Restorative Kindness (We Are the ARK, Mary Reynolds).</p>
+</div>
+</body>
+</html>

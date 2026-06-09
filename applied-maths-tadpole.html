@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Applied Maths — Tadpole Growth &amp; Survival · REAL Living Lab</title>
+<meta name="description" content="A worked applied-maths journal from the REAL Living Lab: logistic growth, its limits, and the survival of a real frog clutch in a garden pond in the west of Ireland, with data submitted to the IPCC Hop To It survey."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--cream:#FBF9F2;--cream-deep:#F1EADA;--ink:#22241F;--ink-soft:#4A4D44;--teal:#1B4F5C;--moss:#33503F;--moss-deep:#1E3127;--night:#16241D;--gold:#C9A961;--gold-soft:#E3CE97;--ember:#C9762F;--line:rgba(34,36,31,0.12);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);color:var(--ink);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+.wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:15px 28px;border-bottom:1px solid var(--line);background:#fff;}
+nav .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.02rem;}
+nav .brand .real{color:var(--moss);font-weight:600;}
+nav .links{display:flex;gap:20px;font-size:0.82rem;} nav .links a{text-decoration:none;color:var(--ink-soft);} nav .links a:hover{color:var(--moss);}
+@media(max-width:640px){nav .links{display:none;}}
+header.band{background:radial-gradient(90% 100% at 70% 0%,#2a4636,var(--moss-deep));color:#f4efe2;padding:54px 0 44px;}
+.band .eyebrow{font-weight:500;letter-spacing:0.22em;text-transform:uppercase;font-size:0.7rem;color:var(--gold-soft);}
+.band h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2.1rem,5vw,3rem);margin:14px 0 12px;line-height:1.08;}
+.band p.lead{max-width:620px;color:rgba(251,249,242,0.85);font-size:1.05rem;}
+.band .meta{margin-top:18px;font-size:0.82rem;color:rgba(251,249,242,0.6);font-family:'JetBrains Mono',monospace;line-height:1.7;}
+section{padding:46px 0;border-bottom:1px solid var(--line);}
+.label{font-weight:500;letter-spacing:0.18em;text-transform:uppercase;font-size:0.68rem;color:var(--gold);}
+h2{font-family:'Fraunces',serif;font-weight:500;font-size:1.7rem;margin:10px 0 16px;}
+h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.2rem;margin:22px 0 8px;}
+p.body{color:var(--ink-soft);margin-bottom:14px;}
+p.body strong{color:var(--ink);font-weight:500;}
+.hooks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+@media(max-width:680px){.hooks{grid-template-columns:1fr;}}
+.hook{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px;}
+.hook .q{font-family:'Fraunces',serif;font-size:1rem;color:var(--ink);margin-bottom:8px;}
+.hook .a{font-size:0.86rem;color:var(--ink-soft);}
+.hook .a b{color:var(--moss);font-weight:600;}
+.formula{background:var(--cream-deep);border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:1.05rem;color:var(--moss);margin:14px 0;}
+.formula small{display:block;font-family:'Jost';font-size:0.8rem;color:var(--ink-soft);margin-top:8px;font-style:italic;}
+table{width:100%;border-collapse:collapse;font-size:0.86rem;margin:14px 0;}
+th{background:var(--moss-deep);color:#f4efe2;font-weight:500;text-align:left;padding:9px 12px;font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;}
+td{padding:8px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;}
+td.nt{color:var(--ink-soft);font-size:0.82rem;}
+.chart{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 14px 8px;margin:14px 0;}
+.legend{display:flex;gap:20px;justify-content:center;font-size:0.8rem;color:var(--ink-soft);margin-top:4px;padding-bottom:8px;}
+.legend span{display:inline-flex;align-items:center;gap:7px;}
+.legend .ln{width:20px;height:0;border-top:2.4px solid var(--moss);} .legend .ln.m{border-top:2px dashed var(--teal);}
+.calc{background:#fff;border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:18px 22px;font-family:'JetBrains Mono',monospace;font-size:0.86rem;line-height:1.9;color:var(--ink);}
+.calc .r{color:var(--moss);font-weight:500;}
+.break{background:radial-gradient(90% 100% at 30% 0%,#2a4636,var(--moss-deep));color:#f4efe2;border-radius:16px;padding:28px 30px;margin-top:8px;}
+.break h3{color:#fff;margin-top:0;}
+.break p{color:rgba(251,249,242,0.86);margin-bottom:12px;}
+.break .punch{font-family:'Fraunces',serif;font-style:italic;font-size:1.25rem;color:var(--gold-soft);margin-top:8px;line-height:1.4;}
+.reflect{background:var(--cream-deep);border-radius:14px;padding:22px 24px;margin-top:16px;}
+.reflect .label{margin-bottom:8px;display:block;}
+.reflect p{color:var(--ink-soft);font-size:0.95rem;}
+.wild .big{font-family:'Fraunces',serif;font-size:2rem;color:var(--ember);}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+@media(max-width:560px){.compare{grid-template-columns:1fr;}}
+.compare .c{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px;}
+.compare .c .n{font-family:'Fraunces',serif;font-size:1.6rem;color:var(--moss);}
+.compare .c .l{font-size:0.8rem;color:var(--ink-soft);}
+.close{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.2rem,2.6vw,1.6rem);color:var(--teal);line-height:1.42;text-align:center;max-width:680px;margin:0 auto;}
+.attrib{font-size:0.8rem;color:var(--ink-soft);line-height:1.7;}
+.attrib b{color:var(--ink);font-weight:500;}
+footer{background:var(--night);color:#f4efe2;padding:40px 0;text-align:center;font-size:0.84rem;} footer a{color:var(--gold-soft);text-decoration:none;}
+.cite{color:var(--moss);font-weight:500;}
+</style></head>
+<body>
+<nav>
+  <div class="brand"><svg width="20" height="20" viewBox="0 0 100 100" fill="none"><path d="M50 50 C50 42,56 36,62 36 C72 36,78 44,78 52 C78 66,66 76,52 76 C32 76,20 62,20 46 C20 24,36 10,54 10 C78 10,94 30,94 54 C94 82,74 100,48 100" stroke="#C9A961" stroke-width="3" stroke-linecap="round"/></svg><span><span class="real">REAL</span> Living Lab</span></div>
+  <div class="links"><a href="index.html">Home</a><a href="evidence-reels.html">Evidence</a><a href="lab-network.html">Network</a><a href="danu.html" style="margin-left:20px;">DANÚ</a></div>
+</nav>
+
+<header class="band"><div class="wrap">
+  <div class="eyebrow">Applied Maths · A worked study</div>
+  <h1>Tadpole Growth &amp; Survival</h1>
+  <p class="lead">Logistic growth, its limits, and what the numbers tell us about a real pond in the west of Ireland.</p>
+  <div class="meta">From T.9 Applied Maths, ATU · a real clutch spawned 22 February 2026 at Gairdín DANÚ<br>Counts submitted to the IPCC Hop To It survey, Ireland&#39;s longest-running citizen science frog study</div>
+</div></header>
+
+<section><div class="wrap">
+  <span class="label">Why we do this</span>
+  <h2>Real numbers, from a real pond.</h2>
+  <p class="body">These are real tadpoles from a real clutch, spawned on 22 February 2026. Everything below was calculated from weekly observations, and the survival counts were submitted to the <span class="cite">IPCC Hop To It survey</span>. Before the maths, three things worth knowing about the animal you are modelling.</p>
+  <div class="hooks">
+    <div class="hook"><div class="q">A frog at the bottom of this pond in January. How long can it survive with no air?</div><div class="a"><b>Several months.</b> Under the ice the water sits near 4°C. The frog drops its heart rate from 40 beats a minute to 2 or 3, its metabolism falls about 95%, and oxygen crosses straight through its skin.</div></div>
+    <div class="hook"><div class="q">What is your garden frog carrying that could save your life?</div><div class="a"><b>A chemical library of antibiotics.</b> Frog skin secretes 3,000+ antimicrobial peptides, some active against MRSA and resistant bacteria, now studied at UCC and Trinity.</div></div>
+    <div class="hook"><div class="q">Which is older on Earth: T-Rex, frogs, or grass?</div><div class="a"><b>Frogs.</b> Frogs about 200 million years, T-Rex only 68 million, grass 60 million. The frog watched the dinosaurs arrive and leave.</div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="label">The model</span>
+  <h2>Logistic growth, and where it holds.</h2>
+  <div class="formula">L(t) = 42 / (1 + 7.4 &times; e^(&minus;0.45t))<small>Unlike simple exponential growth, this levels off at a ceiling of M = 42 mm.</small></div>
+  <p class="body">The chart plots the tadpole&#39;s actual measured length each week against the length the model predicts. They agree beautifully from week 0 to about week 11. Then, in the shaded weeks, they part company.</p>
+  <div class="chart"><svg viewBox="0 0 720 400" role="img" aria-label="Growth chart: actual tadpole length versus the logistic model over 14 weeks.">
+<rect x="64" y="44" width="626" height="316" fill="#fff"/>
+<line x1="64" y1="360.0" x2="690" y2="360.0" stroke="rgba(34,36,31,0.08)" stroke-width="1"/><text x="56" y="363.0" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">0</text><line x1="64" y1="289.8" x2="690" y2="289.8" stroke="rgba(34,36,31,0.08)" stroke-width="1"/><text x="56" y="292.8" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">10</text><line x1="64" y1="219.6" x2="690" y2="219.6" stroke="rgba(34,36,31,0.08)" stroke-width="1"/><text x="56" y="222.6" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">20</text><line x1="64" y1="149.3" x2="690" y2="149.3" stroke="rgba(34,36,31,0.08)" stroke-width="1"/><text x="56" y="152.3" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">30</text><line x1="64" y1="79.1" x2="690" y2="79.1" stroke="rgba(34,36,31,0.08)" stroke-width="1"/><text x="56" y="82.1" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">40</text><text x="64.0" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">0</text><text x="153.4" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">2</text><text x="242.9" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">4</text><text x="332.3" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">6</text><text x="421.7" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">8</text><text x="511.1" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">10</text><text x="600.6" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">12</text><text x="690.0" y="378" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">14</text>
+<rect x="578.2" y="44" width="111.8" height="316" fill="rgba(201,118,47,0.07)"/>
+<polyline points="64.0,324.9 108.7,308.7 153.4,286.3 198.1,258.9 242.9,227.3 287.6,194.3 332.3,162.7 377.0,136.0 421.7,114.9 466.4,98.8 511.1,87.5 555.9,79.8 600.6,74.9 645.3,71.4 690.0,69.3" fill="none" stroke="#1B4F5C" stroke-width="2" stroke-dasharray="5 4"/>
+<polyline points="64.0,324.9 108.7,310.8 153.4,289.8 198.1,261.7 242.9,226.6 287.6,191.5 332.3,156.4 377.0,128.3 421.7,107.2 466.4,86.1 511.1,72.1 555.9,65.1 600.6,65.1 645.3,79.1 690.0,233.6" fill="none" stroke="#33503F" stroke-width="2.4"/>
+<circle cx="64.0" cy="324.9" r="2" fill="#1B4F5C"/><circle cx="108.7" cy="308.7" r="2" fill="#1B4F5C"/><circle cx="153.4" cy="286.3" r="2" fill="#1B4F5C"/><circle cx="198.1" cy="258.9" r="2" fill="#1B4F5C"/><circle cx="242.9" cy="227.3" r="2" fill="#1B4F5C"/><circle cx="287.6" cy="194.3" r="2" fill="#1B4F5C"/><circle cx="332.3" cy="162.7" r="2" fill="#1B4F5C"/><circle cx="377.0" cy="136.0" r="2" fill="#1B4F5C"/><circle cx="421.7" cy="114.9" r="2" fill="#1B4F5C"/><circle cx="466.4" cy="98.8" r="2" fill="#1B4F5C"/><circle cx="511.1" cy="87.5" r="2" fill="#1B4F5C"/><circle cx="555.9" cy="79.8" r="2" fill="#1B4F5C"/><circle cx="600.6" cy="74.9" r="2" fill="#1B4F5C"/><circle cx="645.3" cy="71.4" r="2" fill="#1B4F5C"/><circle cx="690.0" cy="69.3" r="2" fill="#1B4F5C"/><circle cx="64.0" cy="324.9" r="2.6" fill="#33503F"/><circle cx="108.7" cy="310.8" r="2.6" fill="#33503F"/><circle cx="153.4" cy="289.8" r="2.6" fill="#33503F"/><circle cx="198.1" cy="261.7" r="2.6" fill="#33503F"/><circle cx="242.9" cy="226.6" r="2.6" fill="#33503F"/><circle cx="287.6" cy="191.5" r="2.6" fill="#33503F"/><circle cx="332.3" cy="156.4" r="2.6" fill="#33503F"/><circle cx="377.0" cy="128.3" r="2.6" fill="#33503F"/><circle cx="421.7" cy="107.2" r="2.6" fill="#33503F"/><circle cx="466.4" cy="86.1" r="2.6" fill="#33503F"/><circle cx="511.1" cy="72.1" r="2.6" fill="#33503F"/><circle cx="555.9" cy="65.1" r="2.6" fill="#33503F"/><circle cx="600.6" cy="65.1" r="2.6" fill="#33503F"/><circle cx="645.3" cy="79.1" r="2.6" fill="#33503F"/><circle cx="690.0" cy="233.6" r="2.6" fill="#33503F"/><line x1="690.0" y1="69.3" x2="690.0" y2="233.6" stroke="#C9762F" stroke-width="2" stroke-dasharray="3 3"/><circle cx="690.0" cy="233.6" r="4" fill="#C9762F"/>
+<text x="682.0" y="151.4" text-anchor="end" font-size="10.5" font-family="Jost" font-weight="500" fill="#C9762F">23 mm gap</text>
+<text x="682.0" y="164.4" text-anchor="end" font-size="9.5" font-family="Jost" fill="#C9762F">metamorphosis</text>
+<text x="375" y="398" text-anchor="middle" font-size="10.5" font-family="Jost" fill="#5b5d53">Weeks since spawn</text>
+<text x="18" y="200" text-anchor="middle" font-size="10.5" font-family="Jost" fill="#5b5d53" transform="rotate(-90 18 200)">Length (mm)</text>
+</svg>
+    <div class="legend"><span><span class="ln"></span>Actual length</span><span><span class="ln m"></span>Model L(t)</span></div>
+  </div>
+  <table><tr><th>Week</th><th>Actual (mm)</th><th>Model L(t) (mm)</th></tr><tr><td>0</td><td>5</td><td>5.0</td></tr><tr><td>1</td><td>7</td><td>7.3</td></tr><tr><td>2</td><td>10</td><td>10.5</td></tr><tr><td>3</td><td>14</td><td>14.4</td></tr><tr><td>4</td><td>19</td><td>18.9</td></tr><tr><td>5</td><td>24</td><td>23.6</td></tr><tr><td>6</td><td>29</td><td>28.1</td></tr><tr><td>7</td><td>33</td><td>31.9</td></tr><tr><td>8</td><td>36</td><td>34.9</td></tr><tr><td>9</td><td>39</td><td>37.2</td></tr><tr><td>10</td><td>41</td><td>38.8</td></tr><tr><td>11</td><td>42</td><td>39.9</td></tr><tr style="background:rgba(201,118,47,0.09)"><td>12</td><td>42</td><td>40.6</td></tr><tr style="background:rgba(201,118,47,0.09)"><td>13</td><td>40</td><td>41.1</td></tr><tr style="background:rgba(201,118,47,0.09)"><td>14</td><td>18</td><td>41.4</td></tr></table>
+</div></section>
+
+<section><div class="wrap">
+  <span class="label">Predict from the model</span>
+  <h2>Working L(3) by hand.</h2>
+  <div class="calc">
+  L(3) = 42 / (1 + 7.4 &times; e^(&minus;0.45 &times; 3))<br>
+  exponent: &minus;0.45 &times; 3 = &minus;1.35<br>
+  e^(&minus;1.35) = 0.2592<br>
+  denominator: 1 + 7.4 &times; 0.2592 = 2.918<br>
+  <span class="r">L(3) = 42 &divide; 2.918 = 14.4 mm</span>
+  </div>
+  <p class="body" style="margin-top:14px;">The photograph of the real tadpoles at week 3 showed them at about <strong>9 mm</strong>, not 14.4. The model is not wrong, it is assuming the wrong pond. It expects water at about 18°C, but an Irish garden pond in March sits at 8 to 12°C, so the real tadpoles grow more slowly. The lesson is the quiet one: <strong>every published growth model carries hidden assumptions, and a real local place may not honour them.</strong></p>
+</div></section>
+
+<section><div class="wrap">
+  <span class="label">Where the model breaks</span>
+  <h2>The 23 millimetre gap.</h2>
+  <div class="break">
+    <h3>At week 14, the model predicts 41.4 mm. The real animal is 18 mm.</h3>
+    <p>That is a gap of more than half the length of the tadpole, and it is not measurement error. The tadpole has begun metamorphosis. A surge of thyroid hormone signals every tissue to remodel. The tail is consumed from the inside by programmed cell death, and the nutrients fuel the growing legs. The intestine shrinks by about 90% to rebuild for a carnivore&#39;s diet. The eyes migrate across the skull. The animal becomes shorter because it is becoming something else.</p>
+    <p class="punch">The logistic model has no term for this. It can describe growth, but not transformation.</p>
+  </div>
+  <div class="reflect">
+    <span class="label">Reflection</span>
+    <p>(i) The model assumes the tadpole keeps doing one thing: growing longer toward a fixed ceiling, ever more slowly. (ii) That assumption breaks at week 12 because the animal stops simply growing and starts transforming, its body remodelled rather than enlarged. (iii) So the measured length falls while the model keeps rising, and the gap at week 14 is biology the equation was never built to hold.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="label">Survival</span>
+  <h2>From spawn to froglet.</h2>
+  <p class="body">Growth is only half the story. The other half is how many survive. Cumulative survival is each week&#39;s count divided by the original 200 eggs.</p>
+  <div class="chart"><svg viewBox="0 0 720 340" role="img" aria-label="Survival curve: percentage of original 200 eggs alive each week.">
+<rect x="64" y="44" width="626" height="256" fill="#fff"/>
+<line x1="64" y1="300.0" x2="690" y2="300.0" stroke="rgba(34,36,31,0.08)"/><text x="56" y="303.0" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">0%</text><line x1="64" y1="236.0" x2="690" y2="236.0" stroke="rgba(34,36,31,0.08)"/><text x="56" y="239.0" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">25%</text><line x1="64" y1="172.0" x2="690" y2="172.0" stroke="rgba(34,36,31,0.08)"/><text x="56" y="175.0" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">50%</text><line x1="64" y1="108.0" x2="690" y2="108.0" stroke="rgba(34,36,31,0.08)"/><text x="56" y="111.0" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">75%</text><line x1="64" y1="44.0" x2="690" y2="44.0" stroke="rgba(34,36,31,0.08)"/><text x="56" y="47.0" text-anchor="end" font-size="10" fill="#5b5d53" font-family="Jost">100%</text><text x="64.0" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">0</text><text x="153.4" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">1</text><text x="242.9" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">2</text><text x="332.3" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">3</text><text x="421.7" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">4</text><text x="511.1" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">5</text><text x="600.6" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">6</text><text x="690.0" y="318" text-anchor="middle" font-size="10" fill="#5b5d53" font-family="Jost">7</text>
+<polyline points="64.0,44.0 153.4,69.6 242.9,146.4 332.3,178.4 421.7,207.8 511.1,225.8 600.6,242.4 690.0,251.4" fill="none" stroke="#33503F" stroke-width="2.4"/>
+<circle cx="64.0" cy="44.0" r="3" fill="#33503F"/><text x="64.0" y="35.0" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">100%</text><circle cx="153.4" cy="69.6" r="3" fill="#33503F"/><text x="153.4" y="60.6" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">90%</text><circle cx="242.9" cy="146.4" r="3" fill="#33503F"/><text x="242.9" y="137.4" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">60%</text><circle cx="332.3" cy="178.4" r="3" fill="#33503F"/><text x="332.3" y="169.4" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">47.5%</text><circle cx="421.7" cy="207.8" r="3" fill="#33503F"/><text x="421.7" y="198.8" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">36%</text><circle cx="511.1" cy="225.8" r="3" fill="#33503F"/><text x="511.1" y="216.8" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">29%</text><circle cx="600.6" cy="242.4" r="3" fill="#33503F"/><text x="600.6" y="233.4" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">22.5%</text><circle cx="690.0" cy="251.4" r="3" fill="#33503F"/><text x="690.0" y="242.4" text-anchor="middle" font-size="9.5" font-family="Jost" font-weight="500" fill="#33503F">19%</text><text x="198.1" y="108.0" text-anchor="middle" font-size="10" font-family="Jost" font-weight="500" fill="#C9762F">hatching bottleneck</text><text x="198.1" y="121.0" text-anchor="middle" font-size="9.5" font-family="Jost" fill="#C9762F">60 lost in 7 days</text>
+<text x="375" y="338" text-anchor="middle" font-size="10.5" font-family="Jost" fill="#5b5d53">Weeks since spawn</text>
+</svg></div>
+  <table><tr><th>Week</th><th>Date</th><th>Count</th><th>Survival</th><th>Notes</th></tr><tr><td>0</td><td>22 Feb</td><td>200</td><td><b>100%</b></td><td class="nt">Eggs in jelly</td></tr><tr><td>1</td><td>1 Mar</td><td>180</td><td><b>90%</b></td><td class="nt">Some eggs white (unfertilised)</td></tr><tr><td>2</td><td>8 Mar</td><td>120</td><td><b>60%</b></td><td class="nt">Hatchlings, yolk sac visible</td></tr><tr><td>3</td><td>15 Mar</td><td>95</td><td><b>47.5%</b></td><td class="nt">Free-swimming, feeding</td></tr><tr><td>4</td><td>22 Mar</td><td>72</td><td><b>36%</b></td><td class="nt">Growing, size variation</td></tr><tr><td>5</td><td>29 Mar</td><td>58</td><td><b>29%</b></td><td class="nt">Active, darker colour</td></tr><tr><td>6</td><td>5 Apr</td><td>45</td><td><b>22.5%</b></td><td class="nt">External gills gone</td></tr><tr><td>7</td><td>12 Apr</td><td>38</td><td><b>19%</b></td><td class="nt">Hind leg buds visible</td></tr></table>
+  <p class="body" style="margin-top:14px;">The single worst transition is <strong>week 1 to week 2</strong>, when 60 tadpoles are lost in seven days. This is the hatching bottleneck: the yolk sac runs out and the hatchlings must start feeding themselves. Many do not make it.</p>
+</div></section>
+
+<section class="wild"><div class="wrap">
+  <span class="label">In the wild</span>
+  <h2>The real numbers are harder.</h2>
+  <table><tr><th>Stage</th><th>Count (from 3,000 eggs)</th><th>% of original</th></tr>
+    <tr><td>Eggs spawned</td><td>3,000</td><td>100%</td></tr>
+    <tr><td>Hatch</td><td>2,790</td><td>93%</td></tr>
+    <tr><td>Froglets (metamorphosis)</td><td>120</td><td>4%</td></tr>
+    <tr style="background:rgba(201,118,47,0.09)"><td><b>Breeding adults (year 3)</b></td><td><b>5</b></td><td><b>0.17%</b></td></tr>
+  </table>
+  <div class="compare">
+    <div class="c"><div class="n">19%</div><div class="l">survived to week 7 in the tank (38 of 200)</div></div>
+    <div class="c"><div class="n">4%</div><div class="l">reach froglet stage in the wild</div></div>
+  </div>
+  <p class="body" style="margin-top:16px;">The tank runs at roughly <strong>five times</strong> the wild survival rate, because it removes the pressures that kill most wild tadpoles: predators, frost, drying out, food insecurity. But the tank is not neutral either. High density, restricted volume and no natural food web bring stresses the wild animal never meets. <strong>Five breeding adults from three thousand eggs is a 99.83% loss. Every garden pond matters.</strong></p>
+</div></section>
+
+<section><div class="wrap">
+  <p class="close">Same maths, new medium, real contribution. The next step turns this spreadsheet into a camera: a few lines of Python and a small sensor at the pond, capturing growth and survival every day, and feeding the same national survey. The numbers a student calculates by hand become a living data stream.</p>
+  <div style="margin-top:30px;" class="attrib">
+    <b>About this study.</b> A worked journal from T.9 Applied Maths at Atlantic Technological University, completed by students and shown here anonymously. Tadpole observations from a real clutch at Gairdín DANÚ, spawned 22 February 2026.<br><br>
+    <b>Sources.</b> Wild survival figures from Froglife and the Amphibian and Reptile Conservation Trust. Frog observations submitted to the IPCC Hop To It Frog Survey (since 1997), ipcc.ie. A part of the REAL Living Lab, where strong student work becomes part of the project.
+  </div>
+</div></section>
+
+<footer><div class="wrap">A worked study of the <a href="index.html">REAL Living Lab</a> · <a href="evidence-reels.html">See the pond it came from</a><br><span style="font-size:0.72rem;color:rgba(251,249,242,0.5);">e&#739; — grow at your own rate · T.9 Applied Maths · ATU · CC BY-SA 4.0</span></div></footer>
+</body></html>
