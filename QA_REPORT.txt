@@ -1,0 +1,27 @@
+REAL Living Lab pre-deployment QA
+
+Status: PASS
+
+Automated checks completed:
+- 13 HTML pages present including 404 and legacy redirect
+- 205 internal/external link references parsed
+- 56 image references parsed
+- 21 image assets verified as readable image files
+- 0 missing internal file targets
+- 0 missing image targets
+- principal pages cross-linked through shared navigation/footer
+- current page marked in navigation with aria-current
+- relative paths used throughout for GitHub Pages portability
+- CNAME included for reallivinglab.com
+- sitemap.xml and robots.txt included
+- legacy danu.html redirects to annaghdown.html
+- old phrase “Science you can walk into” absent
+- ENoLL labels aligned to 2026 evaluation chapters
+- external URLs configured with noopener/noreferrer
+- image files are web-optimised launch copies
+
+Manual check still recommended after GitHub Pages deploy:
+1. Open homepage on phone and desktop.
+2. Click each top navigation item once.
+3. Confirm custom domain HTTPS certificate is active.
+4. Confirm Facebook and ENoLL external links open.
